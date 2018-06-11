@@ -33,6 +33,11 @@ public protocol NavigationRowCompatible: Row, RowStyle {}
 /// This protocol defines the compatible interface of a `TapActionRow` regardless of its associated cell type.
 public protocol TapActionRowCompatible: Row, RowStyle {}
 
+/// This protocol defines the compatible interface of a `UpdatableRow` regardless of its associated cell type.
+public protocol UpdatableRowCompatible: NavigationRowCompatible {
+  /// The subtitle text of cell.
+  var textValue: String { get set }
+}
 
 /// This protocol defines the compatible interface of an `OptionRow` regardless of its associated cell type.
 public protocol OptionRowCompatible: Row, RowStyle {

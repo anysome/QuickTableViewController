@@ -46,7 +46,8 @@ internal final class DefaultViewController: QuickTableViewController {
     tableContents = [
       Section(title: "Switch", rows: [
         SwitchRow(title: "Setting 1", switchValue: true, icon: .image(globe), action: didToggleSwitch()),
-        SwitchRow(title: "Setting 2", switchValue: false, icon: .image(time), action: didToggleSwitch())
+        SwitchRow(title: "Setting 2", switchValue: false, icon: .image(time), action: didToggleSwitch()),
+        UpdatableRow(title: "Value change", value: "abc", action: didUpdateValue())
       ]),
 
       Section(title: "Tap Action", rows: [
@@ -94,6 +95,16 @@ internal final class DefaultViewController: QuickTableViewController {
       if let row = $0 as? SwitchRowCompatible {
         let state = "\(row.title) = \(row.switchValue)"
         self?.showDebuggingText(state)
+      }
+    }
+  }
+  
+  private func didUpdateValue() -> (Row) -> Void {
+    return { [weak self] in
+      if let row = $0 as? UpdatableRowCompatible {
+        print("old row value = \(row.textValue)")
+        row.textValue = "\(row.textValue) + 1"
+        self?.tableView.reloadData()
       }
     }
   }
